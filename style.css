@@ -33,8 +33,15 @@
     isolation: isolate;
   }
 
+
+:root {
+  font-size: 2.5vh;
+}
+
 body {
-    background-color: #fef2f2;
+    width: 100%;
+    height: 100%;
+    background-color: #F1F5F9;
 }
 
 dialog {
@@ -43,4 +50,62 @@ dialog {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.bookSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 14em);
+  gap: 3em;
+  padding: 3em;
+}
+
+.testCard {
+  display: none;
+  flex-direction: column;
+  background-color: #FCA5A5;
+  height: 20em;
+  width: 12em;
+  border-radius: 1em;
+  box-shadow: 0.2em 0.2em 0.4em #475569;
+}
+
+.testCard > div {
+  background-color: #FED7AA;
+  padding: 0.5rem 0.7rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 0.2em solid #fdba74;
+}
+
+.cardHeroText {
+  text-align: center;
+  border-radius: 1em 1em 0 0;
+  text-wrap: pretty;
+}
+
+.cardBottomSection {
+  display: flex;
+  margin-top: auto;
+  background-color: #FED7AA;
+  border-radius: 0 0 1em 1em;
+  font-size: 0.9em;
+}
+
+.cardBottomSection .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  margin-left: auto;
+  align-items: end;
+}
+
+.cardBottomSection button{
+  font-size: .6rem;
+  background-color: #ffffff;
+  border: solid 0.01em #00000090;
+  border-radius: 0.4em;
+}
+
+.cardBottomSection input{
+  width: 1.3em;
+  height: 1.3em;
 }

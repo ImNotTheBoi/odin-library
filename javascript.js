@@ -1,21 +1,25 @@
 const dialog = document.querySelector("dialog")
 const bookSection = document.querySelector(".bookSection")
+const bookCard = document.querySelector(".testCard")
 const newBookButton = document.querySelector(".newBook")
 const confirmButton = document.querySelector("#confirmButton")
-const inputs = document.querySelectorAll("input")
+const textInputs = document.querySelectorAll(`input[type="text"]`)
+const checkInput = document.querySelector(".dialogCheckbox")
+console.log(checkInput.checked)
+console.log(checkInput)
 
 const myLibrary = [
     {
         bookName: "The Diary of a Wimpy Kid",
         author: "Jeff Kinney",
         numberOfPages: "221",
-        hasRead: "on"
+        hasRead: true
     }, 
     {
         bookName: "Harry Potter and the Philosopher's Stone",
         author: "J. K. Rowling",
         numberOfPages: "309",
-        hasRead: "on"
+        hasRead: true
     }
     ];
 
@@ -35,27 +39,35 @@ function addBookToLibrary(book) {
 function createBookCards() {
     // * Deletes Books
     const books = document.querySelectorAll(".bookCard")
+    console.log(myLibrary)
     books.forEach((element) => bookSection.removeChild(element))
-    console.log(books)
     // * Creates Books
     myLibrary.forEach((book) => {
-        const newCard = document.createElement("div")
+        const newCard = bookCard.cloneNode(true)
+        const heroText = newCard.querySelector(".cardHeroText")
+        const authorText = newCard.querySelector(".author")
+        const pagesText = newCard.querySelector(".pages")
+        const deleteButton = newCard.querySelector("button")
+        const hasReadButton = newCard.querySelector("input")
         newCard.classList.add("bookCard")
-        newCard.textContent = `${book.bookName} by ${book.author}, ${book.numberOfPages} pages, ${book.hasRead}`
-        const newDeleteButton = document.createElement("button")
-        newDeleteButton.textContent = "Delete"
-        newDeleteButton.classList.add("deleteButton")
-        newDeleteButton.addEventListener("click", () => {
+        heroText.textContent = book.bookName
+        authorText.textContent = `By ${book.author},`
+        pagesText.textContent = `${book.numberOfPages} Pages`
+        hasReadButton.checked = book.hasRead
+        deleteButton.addEventListener("click", () => {
             myLibrary.splice(myLibrary.indexOf(book), 1)
             createBookCards()
             console.log(myLibrary)
         })
-        newCard.append(newDeleteButton)
-        console.log(bookSection)
-        bookSection.appendChild(newCard)  
+        hasReadButton.addEventListener("click", () => {
+            console.log("yes")
+            book.hasRead = !book.hasRead
+            hasReadButton.checked = book.hasRead
+        })
+        newCard.style.display = "flex"
+        bookSection.appendChild(newCard)
     })
 }
-
 
 newBookButton.addEventListener("click", () => {
     dialog.showModal()
@@ -63,7 +75,8 @@ newBookButton.addEventListener("click", () => {
 
 confirmButton.addEventListener("click", (event) => {
     event.preventDefault()
-    const newBook = new Book(...([...inputs].map(input => input.value)))
+    const newBook = new Book(...([...textInputs].map(input => input.value)), checkInput.checked)
+    console.log(checkInput.checked)
     addBookToLibrary(newBook)
     dialog.close()
 })
