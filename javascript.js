@@ -23,11 +23,19 @@ const myLibrary = [
     }
     ];
 
-function Book(bookName, author, numberOfPages, hasRead) {
-    this.bookName = bookName
-    this.author = author
-    this.numberOfPages = numberOfPages
-    this.hasRead = hasRead
+class Book {
+    constructor(bookName, author, numberOfPages, hasRead) {
+        [this.bookName, this.author, this.numberOfPages, this.hasRead] = [bookName, author, numberOfPages, hasRead]
+    }
+    
+    get bookInfo() {
+        return {
+            bookName: this.bookName,
+            author: this.author,
+            numberOfPages: this.numberOfPages,
+            hasRead: this.hasRead
+        }
+    }
 }
 
 function addBookToLibrary(book) {
@@ -77,7 +85,8 @@ confirmButton.addEventListener("click", (event) => {
     event.preventDefault()
     const newBook = new Book(...([...textInputs].map(input => input.value)), checkInput.checked)
     console.log(checkInput.checked)
-    addBookToLibrary(newBook)
+    console.log(newBook.bookInfo)
+    addBookToLibrary(newBook.bookInfo)
     dialog.close()
 })
 
