@@ -25,23 +25,23 @@
         </section>
     </section>
     <dialog>
-        <form action="">
+        <form action="" class="bookForm">
             <div>
                 <label for="bookName">
                     Book Name:
-                    <input type="text" id="bookName">
+                    <input type="text" id="bookName" required>
                 </label>
             </div>
             <div>
                 <label for="author">
                     Author:
-                    <input type="text" id="author">
+                    <input type="text" id="author" required>
                 </label>
             </div>
             <div>
                 <label for="numberOfPages">
                     Number of Pages:
-                    <input type="text" id="numberOfPages">
+                    <input type="text" id="numberOfPages" required>
                 </label>
             </div>
             <div>
@@ -50,6 +50,7 @@
                     <input class="dialogCheckbox" type="checkbox" data-val="true" value="true" id="hasRead">
                 </label>
             </div>
+            <div class="errorContent"></div>
             <div>
                 <button value="cancel" formmethod="dialog">Close</button>
                 <button id="confirmButton">Confirm</button>

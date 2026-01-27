@@ -199,3 +199,7 @@ img {
   border-radius: 0.3em;
   background-color: #a5f3fc;
 }
+
+.errorContent {
+  color: #f87171;
+}

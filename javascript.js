@@ -5,6 +5,7 @@ const newBookButton = document.querySelector(".newBook")
 const confirmButton = document.querySelector("#confirmButton")
 const textInputs = document.querySelectorAll(`input[type="text"]`)
 const checkInput = document.querySelector(".dialogCheckbox")
+const errorContent = document.querySelector(".errorContent")
 console.log(checkInput.checked)
 console.log(checkInput)
 
@@ -43,7 +44,6 @@ function addBookToLibrary(book) {
     createBookCards()
 }
 
-// TODO use cloneNode() later on
 function createBookCards() {
     // * Deletes Books
     const books = document.querySelectorAll(".bookCard")
@@ -79,15 +79,42 @@ function createBookCards() {
 
 newBookButton.addEventListener("click", () => {
     dialog.showModal()
+    errorContent.textContent = ""
 })
 
 confirmButton.addEventListener("click", (event) => {
-    event.preventDefault()
-    const newBook = new Book(...([...textInputs].map(input => input.value)), checkInput.checked)
-    console.log(checkInput.checked)
-    console.log(newBook.bookInfo)
-    addBookToLibrary(newBook.bookInfo)
-    dialog.close()
+    if (checkForm() === false) {event.preventDefault()}
+    else {
+        console.log("closing dialog")
+        event.preventDefault()
+        const newBook = new Book(...([...textInputs].map(input => input.value)), checkInput.checked)
+        console.log(checkInput.checked)
+        console.log(newBook.bookInfo)
+        addBookToLibrary(newBook.bookInfo)
+        dialog.close()
+    }
 })
 
 createBookCards()
+
+let validity;
+function checkForm() {
+    validity = true;
+    [...textInputs].forEach(input => {
+        input.setCustomValidity("")
+        if (!input.validity.valid) {    
+            console.log("error")
+            showError(input)
+            validity = false
+        }
+    })
+    return validity
+}
+
+//** Form Validation */
+function showError(input) {
+    if (input.validity.valueMissing) {
+        errorContent.textContent = ((input.id.charAt(0).toUpperCase() + input.id.slice(1)) + " is missing")
+    }
+    else {}
+}
